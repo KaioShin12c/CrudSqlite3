@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+          $("#update-button").click(function(e){
+            e.preventDefault();
+            var idStudent = $( "#idStudent" ).val();
+            var nameStudent = $("#nameStudent").val();
+            var classStudent = $("#classStudent").val();
+            var majorStudent = $("#majorStudent").val();
+            $.ajax({
+                type:"PUT",
+                url: "/edit/"+idStudent,
+                data:{
+                    id:idStudent,
+                    name:nameStudent,
+                    classSt:classStudent,
+                    major:majorStudent,
+                },
+                success:function(result){
+                    alert('ok');
+                },
+                error:function(result){
+                    alert('error');
+                }
+            })
+          });
+          $("#delete-button").click(function(e){
+            e.preventDefault();
+            var idStudent = $("#idStudent").val();
+            $.ajax({
+                type:"DELETE",
+                url: "/edit/"+idStudent,
+                success:function(result){
+                    alert('ok');
+                },
+                error:function(result){
+                    alert('error');
+                }
+            })
+          });
+        });
+    </script>
+</head>
+<body>
+    <h1>Sua thong tin khach hanh</h1>
+    <br>
+    <form>
+        <p>ID : <input id="idStudent" value="<%= element.id %>"></p>
+        <p>Name : <input id="nameStudent" value="<%= element.name %>"></p>
+        <p>Class : <input id="classStudent" value="<%= element.class %>"></p>
+        <p>Major : <input id="majorStudent" value="<%= element.major %>"></p>
+        <button id="update-button">Update</button>
+        <button id="delete-button">Delete</button>
+    </form>
+    <!-- <script src="../public/assets/jquery.js"></script>
+    <script src="../public/js/script.js"></script> -->
+</body>
+</html>
